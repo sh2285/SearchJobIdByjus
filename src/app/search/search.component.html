@@ -1,0 +1,96 @@
+
+
+<div class= "container-fluid">
+
+  <div class="head">Job Opennings</div>
+    <div class="shadow-sm p-3 mb-5 bg-white rounded headermargin">
+      <div class="row">
+      <div class="col-md-6">
+          <span class="col-md-3">Select Location :</span>
+          <div class="col-md-6">
+          <select name="city" [(ngModel)]="selectedCity" #city   class="form-control" (change)="onChangeCity($event.target.value)">
+            <option  value="0">--All--</option>
+            <option *ngFor="let city of lstCity" [value]="city.location">{{city.location}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <span class="col-md-3">Select Company :</span>
+          <div class="col-md-6">
+          <select name="city" [(ngModel)]="selectedCompany" class="form-control" (change)="onChangeCompany($event.target.value)">
+            <option value="0" >--All--</option>
+            <option *ngFor="let comp of lstCompany" [value]="comp.companyname">{{comp.companyname}}</option>
+            </select>
+          </div>
+        </div>
+    </div>
+      
+  <div class= "row"> 
+    <div class="col-md-12" >
+      <div style = "width: 100%">
+          <div class="col-md-3 pull-right">
+              <input class="form-control"  (keyup)="applyFilter($event.target.value)"   type="search"  placeholder="Search" aria-label="Search">
+          </div> 
+      </div>
+    </div>
+  </div>
+          <table mat-table [dataSource]="dataSource" matSort class="tablewidth">                          
+
+              <ng-container matColumnDef="_id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                <td mat-cell *matCellDef="let element"> {{element._id}} </td>
+              </ng-container>
+        
+              <ng-container matColumnDef="title">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+                  <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="applyLink">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Apply Link</th>
+                    <td mat-cell *matCellDef="let element"> {{element.applylink}} </td>
+                  </ng-container>
+              
+        
+                  <ng-container matColumnDef="companyname">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>CompanyName</th>
+                      <td mat-cell *matCellDef="let element"> {{element.companyname}} </td>
+                    </ng-container>
+                        
+              
+                      <ng-container matColumnDef="location">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
+                          <td mat-cell *matCellDef="let element"> {{element.location}} </td>
+                        </ng-container>
+        
+                        <ng-container matColumnDef="experience">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Experience</th>
+                            <td mat-cell *matCellDef="let element"> {{element.experience}} </td>
+                          </ng-container>
+        
+                        <ng-container matColumnDef="skills">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Skills</th>
+                            <td mat-cell *matCellDef="let element"> {{element.skills}} </td>
+                          </ng-container>
+                    
+                          <ng-container matColumnDef="source">
+                              <th mat-header-cell *matHeaderCellDef mat-sort-header>Source</th>
+                              <td mat-cell *matCellDef="let element"> {{element.source}} </td>
+                            </ng-container>
+        
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>              
+                          </table>
+            
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>            
+</div> 
+
+
+<script>
+$("#city option").val(function(idx, val) {
+  $(this).siblings('[value="'+ val +'"]').remove();
+});
+</script>
+
+
